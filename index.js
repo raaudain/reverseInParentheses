@@ -2,23 +2,25 @@
 
 // Input strings will always be well-formed with matching ()s.
 
-function reverseInParentheses(inputString) {
-    let str = inputString;
-    
-    while (str) {
-        const closing = str.indexOf(")");
-        const opening = str.substr(0, closing).indexOf("(");
-        
-        const start = str.substr(0, opening);
-        const middle = str.substr(opening + 1, closing).split("").reverse().join("")
-        const end = str.substr(closing + 1, str.length)
-        
-        if (closing === -1) {
-            break;
-        }
+// Recursion was needed
 
-        str = start + middle + end;
+function reverseInParentheses(inputString) {
+    if (inputString.includes("(")) {
+        return reverseInParentheses(reverseOnce(inputString));
+    } 
+    else {     
+        return inputString;
     }
+}
+
+function reverseOnce(inputString) {
+    // Looks for characters between "(" and ")"
+    const regex = /\(([^()]*)\)/i;
     
-    return str;
+    // Executes regular expression on string
+    let subStr = regex.exec(inputString)[1]; 
+    subStr = subStr.split("").reverse().join("");
+    
+    // Replaces original characters between "(" and ") and parentheises with new substring
+    return inputString.replace(regex, subStr);
 }
