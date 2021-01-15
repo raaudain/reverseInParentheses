@@ -14,7 +14,7 @@ function reverseInParentheses(inputString) {
 }
 
 function reverseOnce(inputString) {
-    // Looks for characters between "(" and ")"
+    // Looks for parentheses and then characters between "(" and ")"
     const regex = /\(([^()]*)\)/i;
     
     // Executes regular expression on string
